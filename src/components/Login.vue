@@ -17,6 +17,7 @@
   </el-form>
   </body>
 </template>
+
 <script>
 
 export default {
@@ -44,34 +45,18 @@ export default {
             // var data = this.loginForm
             _this.$store.commit('login', _this.loginForm)
             var path = this.$route.query.redirect
+            console.log('success')
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
-          }
+          } console.log('fail')
         })
         .catch(failResponse => {
         })
     }
-
   }
 }
 </script>
 
 <style>
-  .login-container {
-    border-radius: 15px;
-    background-clip: padding-box;
-    margin: 90px auto;
-    width: 350px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-  }
-
-  .login_title {
-    margin: 0px auto 40px auto;
-    text-align: center;
-    color: #505458;
-  }
   #poster {
     background:url("../assets/eva.jpg") no-repeat;
     background-position: center;
@@ -82,6 +67,21 @@ export default {
   }
   body{
     margin: 0px;
+  }
+  .login-container {
+    border-radius: 15px;
+    background-clip: padding-box;
+    margin: 90px auto;
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+  }
+  .login_title {
+    margin: 0px auto 40px auto;
+    text-align: center;
+    color: #505458;
   }
 
 </style>
