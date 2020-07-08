@@ -36,7 +36,7 @@ export default {
       var _this = this
       console.log(this.$store.state)
       this.$axios
-        .post('/login', {
+        .post('/new_login', {
           username: this.loginForm.username,
           password: this.loginForm.password
         })
@@ -47,7 +47,7 @@ export default {
             var path = this.$route.query.redirect
             console.log('success')
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
-          } console.log('fail')
+          }
         })
         .catch(failResponse => {
         })

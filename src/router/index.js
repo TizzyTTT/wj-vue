@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // 导入刚才编写的组件
-import AppIndex from '@/components/home/AppIndex'
-import Login from '@/components/Login'
+import AppIndex from '../components/home/AppIndex'
+import Login from '../components/Login'
 import Home from '../components/home/Home'
+import Test from '../components/common/Test'
 import LibraryIndex from '../components/library/LibraryIndex'
 // 路径 编辑
 
@@ -14,7 +15,12 @@ export default new Router({
     // 下面都是固定的写法
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/Test'
+    },
+    {
+      path: '/Test',
+      name: 'Test',
+      component: Test
     },
     {
       path: '/login',
