@@ -4,7 +4,8 @@ import Router from 'vue-router'
 import AppIndex from '../components/home/AppIndex'
 import Login from '../components/Login'
 import Home from '../components/home/Home'
-import Test from '../components/common/Test'
+import TestChemical from '../components/common/TestChemical'
+import TestUser from '../components/common/TestUser'
 import LibraryIndex from '../components/library/LibraryIndex'
 // 路径 编辑
 
@@ -15,12 +16,17 @@ export default new Router({
     // 下面都是固定的写法
     {
       path: '/',
-      redirect: '/Test'
+      redirect: '/TestUser'
     },
     {
-      path: '/Test',
-      name: 'Test',
-      component: Test
+      path: '/TestUser',
+      name: 'TestUser',
+      component: TestUser
+    },
+    {
+      path: '/TestChemical',
+      name: 'TestChemical',
+      component: TestChemical
     },
     {
       path: '/login',

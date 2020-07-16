@@ -4,6 +4,10 @@
            label-width="0px">
     <h3 class="login_title">系统测试</h3>
     <el-form-item>
+      <el-input type="text" v-model="DataModel.id"
+                auto-complete="off" placeholder="编号"></el-input>
+    </el-form-item>
+    <el-form-item>
       <el-input type="text" v-model="DataModel.chemicalcategory.id"
                 auto-complete="off" placeholder="类别"></el-input>
     </el-form-item>
@@ -19,22 +23,21 @@
       <el-input type="text" v-model="DataModel.chemicalno"
                 auto-complete="off" placeholder="药品编号"></el-input>
     </el-form-item>
-    <el-form-item>
-    <el-input type="text" v-model="DataModel.dno"
-              auto-complete="off" placeholder="删除编号"></el-input>
-    </el-form-item>
 
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="testAddOrUpdate">发送post请求</el-button>
+      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="testAdd">添加</el-button>
     </el-form-item>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="testDelete">删除测试</el-button>
+      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="testDelete">删除</el-button>
     </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="searchResultByCategory">按类别查询</el-button>
     </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="testModifyBean">修改某个药品</el-button>
+    </el-form-item>
+    <el-form-item style="width: 100%">
+      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="deleteALot">部分删除测试</el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -43,10 +46,12 @@
 <script>
 
 export default {
-  name: 'Test',
+  name: 'TestChemical',
   data () {
     return {
       DataModel: {
+        id: '',
+        ids: [],
         chemicalcategory: {
           id: '1'
         },
@@ -63,9 +68,10 @@ export default {
   //  钩子函数：启动自执行，可以发送请求，也可以改变dom元素内容，参考books.vue里面的_this.books = resp.data
   },
   methods: {
-    testAddOrUpdate () {
+    testAdd () {
       this.$axios
-        .post('/chemical', {
+        .post('/addchemical', {
+          id: this.DataModel.id,
           chemicalcategory: this.DataModel.chemicalcategory,
           chemicalname: this.DataModel.chemicalname,
           danwei: this.DataModel.danwei,
@@ -85,7 +91,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$axios
-          .post('/deletechemical', {id: this.DataModel.dno}).then(resp => {
+          .post('/deletechemical', {id: this.DataModel.id}).then(resp => {
             if (resp && resp.status === 200) {
               console.log('delete success')
             }
@@ -118,12 +124,24 @@ export default {
     },
     testModifyBean () {
       this.$axios
-        .post('/chemical', {
-          id: '10',
+        .post('/updatechemical', {
+          id: this.DataModel.id,
           chemicalcategory: this.DataModel.chemicalcategory,
           chemicalname: this.DataModel.chemicalname,
           danwei: this.DataModel.danwei,
           chemicalno: this.DataModel.chemicalno
+        })
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
+          }
+        })
+        .catch(failResponse => {
+        })
+    },
+    deleteALot () {
+      this.$axios
+        .post('/deletesomechemical', {
+          ids: [1, 2, 300, 11, 2, 22]
         })
         .then(successResponse => {
           if (successResponse.data.code === 200) {
